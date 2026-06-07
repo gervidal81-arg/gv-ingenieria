@@ -1,0 +1,811 @@
+cat > /home/claude/gaston-vidal.html << 'HTMLEOF'
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gastón Vidal – Ingeniero Civil MP4513 · Corrientes</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --negro: #0d0d0d;
+    --carbon: #111111;
+    --gris-oscuro: #1a1a1a;
+    --gris-medio: #252525;
+    --gris-borde: #2e2e2e;
+    --oro: #c9a84c;
+    --oro-claro: #e2c07a;
+    --oro-hover: #d4b05e;
+    --texto: #e0dbd0;
+    --texto-muted: #7a7468;
+    --blanco: #f2ede0;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background-color: var(--negro);
+    color: var(--texto);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Cg fill='%23c9a84c' fill-opacity='0.018'%3E%3Cpath d='M0 0h40v40H0zM40 40h40v40H40z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* SVG LOGO — reutilizable */
+  .logo-svg { display: block; }
+
+  /* ---- NAV ---- */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(11,11,11,0.97);
+    border-bottom: 1px solid var(--gris-borde);
+    padding: 0 5%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+  }
+
+  .nav-logo { display: flex; align-items: center; gap: 12px; cursor: pointer; }
+  .nav-logo-text {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: 4px;
+    color: var(--blanco);
+    line-height: 1;
+  }
+  .nav-logo-sub {
+    font-size: 1rem;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--texto-muted);
+    font-weight: 400;
+    margin-top: 3px;
+  }
+
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    text-decoration: none;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--texto-muted);
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--oro); }
+
+  /* ---- HERO ---- */
+  .hero {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 120px 5% 80px;
+    border-bottom: 1px solid var(--gris-borde);
+    overflow: hidden;
+  }
+
+  .hero-bg-text {
+    position: absolute;
+    top: 50%;
+    right: -3%;
+    transform: translateY(-50%);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(160px, 20vw, 300px);
+    color: rgba(201,168,76,0.04);
+    letter-spacing: -4px;
+    pointer-events: none;
+    user-select: none;
+    white-space: nowrap;
+  }
+
+  .hero-logo-grande {
+    margin-bottom: 2.5rem;
+    animation: fadeUp 0.4s ease both;
+  }
+
+  .hero-eyebrow {
+    font-size: 0.72rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--oro);
+    font-weight: 500;
+    margin-bottom: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    animation: fadeUp 0.5s 0.05s ease both;
+  }
+  .hero-eyebrow::before {
+    content: '';
+    display: block;
+    width: 36px;
+    height: 1px;
+    background: var(--oro);
+  }
+
+  .hero h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3rem, 8vw, 6.5rem);
+    line-height: 0.93;
+    letter-spacing: 2px;
+    color: var(--blanco);
+    margin-bottom: 0.5rem;
+    max-width: 780px;
+    animation: fadeUp 0.6s 0.1s ease both;
+  }
+
+  .hero-matricula {
+    font-size: 0.72rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--texto-muted);
+    font-weight: 400;
+    margin-bottom: 1.8rem;
+    animation: fadeUp 0.6s 0.15s ease both;
+  }
+
+  .hero-sub {
+    font-size: 1rem;
+    color: var(--texto-muted);
+    max-width: 460px;
+    margin-bottom: 2.8rem;
+    line-height: 1.8;
+    font-weight: 300;
+    animation: fadeUp 0.6s 0.2s ease both;
+  }
+
+  .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; animation: fadeUp 0.6s 0.25s ease both; }
+
+  .btn-primary {
+    display: inline-block;
+    background: var(--oro);
+    color: var(--negro);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 15px 32px;
+    border: 2px solid var(--oro);
+    transition: background 0.2s, border-color 0.2s;
+    cursor: pointer;
+  }
+  .btn-primary:hover { background: var(--oro-hover); border-color: var(--oro-hover); }
+
+  .btn-secondary {
+    display: inline-block;
+    background: transparent;
+    color: var(--texto);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 15px 32px;
+    border: 1px solid var(--gris-borde);
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .btn-secondary:hover { border-color: var(--texto-muted); color: var(--blanco); }
+
+  .hero-stats {
+    display: flex;
+    gap: 3rem;
+    margin-top: 4rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid var(--gris-borde);
+    flex-wrap: wrap;
+    animation: fadeUp 0.6s 0.3s ease both;
+  }
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.6rem;
+    color: var(--blanco);
+    line-height: 1;
+  }
+  .stat-num span { color: var(--oro); }
+  .stat-label {
+    font-size: 0.68rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--texto-muted);
+    margin-top: 4px;
+    font-weight: 500;
+  }
+
+  /* ---- SECCIÓN GENÉRICA ---- */
+  section { position: relative; z-index: 1; padding: 100px 5%; border-bottom: 1px solid var(--gris-borde); }
+
+  .section-label {
+    font-size: 0.68rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--oro);
+    font-weight: 500;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .section-label::before { content: ''; display: block; width: 24px; height: 1px; background: var(--oro); }
+
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    letter-spacing: 1px;
+    color: var(--blanco);
+    margin-bottom: 1rem;
+    line-height: 1;
+  }
+
+  .section-desc {
+    font-size: 0.92rem;
+    color: var(--texto-muted);
+    max-width: 500px;
+    font-weight: 300;
+    line-height: 1.8;
+    margin-bottom: 3.5rem;
+  }
+
+  /* ---- SERVICIOS ---- */
+  #servicios { background: var(--carbon); }
+
+  .servicios-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1px;
+    background: var(--gris-borde);
+    border: 1px solid var(--gris-borde);
+  }
+
+  .servicio-card {
+    background: var(--carbon);
+    padding: 2.2rem 1.8rem;
+    transition: background 0.25s;
+  }
+  .servicio-card:hover { background: var(--gris-oscuro); }
+
+  .servicio-icon {
+    width: 44px;
+    height: 44px;
+    border: 1px solid var(--gris-borde);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.3rem;
+    transition: border-color 0.25s;
+  }
+  .servicio-card:hover .servicio-icon { border-color: var(--oro); }
+  .servicio-icon svg { width: 20px; height: 20px; stroke: var(--oro); fill: none; stroke-width: 1.5; }
+
+  .servicio-card h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.3rem;
+    letter-spacing: 1px;
+    color: var(--blanco);
+    margin-bottom: 0.5rem;
+  }
+  .servicio-card p { font-size: 0.86rem; color: var(--texto-muted); line-height: 1.7; font-weight: 300; }
+
+  /* badge solar */
+  .badge-nuevo {
+    display: inline-block;
+    font-size: 0.6rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    background: var(--oro);
+    color: var(--negro);
+    padding: 2px 8px;
+    font-weight: 600;
+    margin-left: 8px;
+    vertical-align: middle;
+    position: relative;
+    top: -2px;
+  }
+
+  /* ---- PROCESO ---- */
+  #proceso { background: var(--negro); }
+
+  .proceso-steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  }
+
+  .paso {
+    padding: 2.2rem 1.5rem;
+    border-left: 1px solid var(--gris-borde);
+  }
+  .paso:first-child { border-left: none; }
+
+  .paso-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3rem;
+    color: rgba(201,168,76,0.12);
+    line-height: 1;
+    margin-bottom: 0.8rem;
+  }
+  .paso h4 {
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--blanco);
+    margin-bottom: 0.4rem;
+  }
+  .paso p { font-size: 0.8rem; color: var(--texto-muted); line-height: 1.7; font-weight: 300; }
+
+  /* ---- NOSOTROS ---- */
+  #nosotros { background: var(--gris-oscuro); }
+
+  .nosotros-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: start;
+  }
+
+  .valor-item {
+    display: flex;
+    gap: 1rem;
+    padding: 1.1rem 0;
+    border-bottom: 1px solid var(--gris-borde);
+    align-items: flex-start;
+  }
+  .valor-item:first-child { border-top: 1px solid var(--gris-borde); }
+  .valor-marker { width: 6px; height: 6px; background: var(--oro); flex-shrink: 0; margin-top: 7px; }
+  .valor-item strong { display: block; font-size: 0.83rem; font-weight: 600; color: var(--blanco); margin-bottom: 2px; }
+  .valor-item span { font-size: 0.8rem; color: var(--texto-muted); font-weight: 300; }
+
+  .nosotros-right { padding-top: 2rem; }
+
+  .nosotros-cita {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(1.7rem, 3vw, 2.6rem);
+    color: var(--blanco);
+    line-height: 1.15;
+    letter-spacing: 0.5px;
+    margin-bottom: 1.8rem;
+  }
+  .nosotros-cita em { color: var(--oro); font-style: normal; }
+
+  .nosotros-texto { font-size: 0.9rem; color: var(--texto-muted); line-height: 1.85; font-weight: 300; margin-bottom: 2rem; }
+
+  .badge-matricula {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid var(--gris-borde);
+    padding: 10px 18px;
+    font-size: 0.72rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--texto-muted);
+    font-weight: 500;
+  }
+  .badge-matricula span { color: var(--oro); font-weight: 600; }
+
+  /* ---- CONTACTO ---- */
+  #contacto { background: var(--carbon); }
+
+  .contacto-inner {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 5rem;
+    align-items: start;
+  }
+
+  .contacto-info { padding-top: 2.5rem; }
+
+  .contacto-dato {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 1.6rem;
+  }
+  .contacto-dato-icon {
+    width: 38px;
+    height: 38px;
+    border: 1px solid var(--gris-borde);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .contacto-dato-icon svg { width: 16px; height: 16px; stroke: var(--oro); fill: none; stroke-width: 1.5; }
+  .contacto-dato strong { display: block; font-size: 0.68rem; letter-spacing: 2px; text-transform: uppercase; color: var(--texto-muted); font-weight: 500; margin-bottom: 3px; }
+  .contacto-dato a, .contacto-dato span { font-size: 0.92rem; color: var(--blanco); text-decoration: none; }
+  .contacto-dato a:hover { color: var(--oro); }
+
+  .redes { display: flex; gap: 1rem; margin-top: 2rem; flex-wrap: wrap; }
+  .red-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid var(--gris-borde);
+    padding: 9px 16px;
+    font-size: 0.72rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--texto-muted);
+    text-decoration: none;
+    font-weight: 500;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .red-link:hover { border-color: var(--oro); color: var(--oro); }
+  .red-link svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 1.5; flex-shrink: 0; }
+
+  /* ---- FORM ---- */
+  .form-group { margin-bottom: 1.1rem; }
+  .form-group label { display: block; font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; color: var(--texto-muted); font-weight: 500; margin-bottom: 6px; }
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    width: 100%;
+    background: var(--gris-oscuro);
+    border: 1px solid var(--gris-borde);
+    color: var(--texto);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.9rem;
+    padding: 12px 14px;
+    outline: none;
+    transition: border-color 0.2s;
+    appearance: none;
+    border-radius: 0;
+  }
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus { border-color: var(--oro); }
+  .form-group textarea { height: 100px; resize: vertical; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+  .form-submit {
+    width: 100%;
+    background: var(--oro);
+    color: var(--negro);
+    border: none;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 16px;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-top: 0.5rem;
+    border-radius: 0;
+  }
+  .form-submit:hover { background: var(--oro-hover); }
+
+  /* ---- FOOTER ---- */
+  footer {
+    position: relative;
+    z-index: 1;
+    background: var(--negro);
+    padding: 2.5rem 5%;
+    border-top: 1px solid var(--gris-borde);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .footer-copy { font-size: 0.72rem; color: var(--texto-muted); letter-spacing: 1px; font-weight: 300; }
+
+  /* ---- RESPONSIVE ---- */
+  @media (max-width: 820px) {
+    .nav-links { display: none; }
+    .nosotros-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .contacto-inner { grid-template-columns: 1fr; gap: 2rem; }
+    .paso { border-left: 1px solid var(--gris-borde); }
+    .paso:nth-child(odd) { border-left: none; }
+  }
+  @media (max-width: 540px) {
+    .paso { border-left: none; border-top: 1px solid var(--gris-borde); }
+    .form-row { grid-template-columns: 1fr; }
+    .hero-ctas { flex-direction: column; }
+    .btn-primary, .btn-secondary { text-align: center; }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <img src="logo.png" alt="Logo" width="38" height="38" style="object-fit:contain;">
+    <div>
+      <div class="nav-logo-text">GV INGENIERIA</div>
+      <div class="nav-logo-sub">Ingeniero Civil · MP4513</div>
+    </div>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#servicios">Servicios</a></li>
+    <li><a href="#proceso">Metodología</a></li>
+    <li><a href="#nosotros">Nosotros</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+  </ul>
+  <a href="#contacto" class="btn-primary" style="padding:10px 22px;font-size:0.7rem;">Solicitar presupuesto</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg-text">VIDAL</div>
+
+ <!-- Logo grande -->
+<div class="hero-logo-grande">
+  <img src="logo.png" alt="Logo" width="150" height="150" style="object-fit:contain;">
+  <div class=<span style="font-size: 2rem; letter-spacing: 4px; color: #C9A84C; font-family: 'Bebas Neue', sans-serif;">GV<span style="font-size: 2rem; letter-spacing: 4px; color: #f2ede0; font-family: 'Bebas Neue', sans-serif;">INGENIERIA</span>
+</div>
+<div class="nav-logo-sub">Gastón Vidal · Ingeniero Civil · MP4513</div>
+
+  <div class="hero-eyebrow">Corrientes · NEA · Argentina</div>
+<h1>INGENIERIA<br>QUE CONSTRUYE<br><span style="color: #C9A84C;">CONFIANZA</span></h1>
+  <div class="hero-matricula">Ingeniero Civil · Matrícula Provincial MP4513</div>
+  <p class="hero-sub">Soluciones integrales en construcción. Planos, cálculos estructurales, asesoramiento técnico e instalación de energía solar fotovoltaica.</p>
+  <div class="hero-ctas">
+    <a href="https://wa.me/5493794658356" class="btn-primary">Consultar por WhatsApp</a>
+    <a href="#servicios" class="btn-secondary">Ver servicios</a>
+  </div>
+  <div class="hero-stats">
+    <div>
+      <div class="stat-num"><span>MP</span>4513</div>
+      <div class="stat-label">Matrícula provincial</div>
+    </div>
+    <div>
+      <div class="stat-num"><span>3</span></div>
+      <div class="stat-label">Especialidades</div>
+    </div>
+    <div>
+      <div class="stat-num"><span>NEA</span></div>
+      <div class="stat-label">Zona de cobertura</div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICIOS -->
+<section id="servicios">
+  <div class="section-label">Lo que hacemos</div>
+  <h2 class="section-title">Servicios</h2>
+  <p class="section-desc">Desde el proyecto hasta la obra terminada. Con respaldo técnico profesional en cada etapa.</p>
+
+  <div class="servicios-grid">
+
+    <div class="servicio-card">
+      <div class="servicio-icon">
+        <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8zM14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>
+      </div>
+      <h3>Planos y proyectos</h3>
+      <p>Planos arquitectónicos, estructurales y de instalaciones. Tramitación ante municipio y organismos provinciales.</p>
+    </div>
+
+    <div class="servicio-card">
+      <div class="servicio-icon">
+        <svg viewBox="0 0 24 24"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18"/></svg>
+      </div>
+      <h3>Cálculos estructurales</h3>
+      <p>Cálculo y verificación de estructuras de hormigón armado, metálicas y mixtas. Memorias de cálculo certificadas.</p>
+    </div>
+
+    <div class="servicio-card">
+      <div class="servicio-icon">
+        <svg viewBox="0 0 24 24"><path d="M3 21h18M3 7l9-4 9 4M4 7v14M20 7v14M9 21V11h6v10"/></svg>
+      </div>
+      <h3>Construcción de obras</h3>
+      <p>Viviendas, locales comerciales, galpones e industrias. Dirección técnica incluida desde la fundación hasta la entrega.</p>
+    </div>
+
+    <div class="servicio-card">
+      <div class="servicio-icon">
+        <svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+      </div>
+      <h3>Refacciones y ampliaciones</h3>
+      <p>Remodelaciones, ampliaciones y reparaciones con dirección profesional. Garantía sobre todos los trabajos realizados.</p>
+    </div>
+
+    <div class="servicio-card">
+      <div class="servicio-icon">
+        <svg viewBox="0 0 24 24"><path d="M2 12h2M20 12h2M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41M9 12a3 3 0 1 0 6 0 3 3 0 0 0-6 0"/></svg>
+      </div>
+      <h3>Paneles solares <span class="badge-nuevo">Nuevo</span></h3>
+      <p>Venta, importación e instalación de sistemas fotovoltaicos para viviendas y comercios. Dimensionado, instalación y puesta en marcha con respaldo técnico de ingeniería.</p>
+    </div>
+
+    <div class="servicio-card">
+      <div class="servicio-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+      </div>
+      <h3>Asesoramiento técnico</h3>
+      <p>Consultas, inspecciones, informes periciales y auditorías de obra. Criterio profesional para cada decisión constructiva.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- PROCESO -->
+<section id="proceso">
+  <div class="section-label">Metodología</div>
+  <h2 class="section-title">Cómo trabajamos</h2>
+  <p class="section-desc">Proceso claro, sin sorpresas. Sabés exactamente qué pasa en cada etapa.</p>
+
+  <div class="proceso-steps">
+    <div class="paso">
+      <div class="paso-num">01</div>
+      <h4>Consulta inicial</h4>
+      <p>Evaluamos tu proyecto por WhatsApp, email o en persona. Sin costo.</p>
+    </div>
+    <div class="paso">
+      <div class="paso-num">02</div>
+      <h4>Propuesta técnica</h4>
+      <p>Presentamos memoria descriptiva, cronograma y presupuesto detallado por ítem.</p>
+    </div>
+    <div class="paso">
+      <div class="paso-num">03</div>
+      <h4>Ejecución con seguimiento</h4>
+      <p>Dirección técnica en obra con reportes periódicos. Cada avance documentado.</p>
+    </div>
+    <div class="paso">
+      <div class="paso-num">04</div>
+      <h4>Entrega y certificación</h4>
+      <p>Entrega formal con garantía escrita y documentación técnica completa.</p>
+    </div>
+  </div>
+</section>
+
+<!-- NOSOTROS -->
+<section id="nosotros">
+  <div class="nosotros-grid">
+    <div>
+      <div class="section-label">Quién soy</div>
+      <h2 class="section-title">Gastón Vidal</h2>
+      <div class="nosotros-valores" style="margin-top:1.5rem">
+        <div class="valor-item">
+          <div class="valor-marker"></div>
+          <div><strong>Respaldo profesional</strong><span>Ingeniero Civil matriculado. Cada trabajo tiene firma técnica y responsabilidad legal.</span></div>
+        </div>
+        <div class="valor-item">
+          <div class="valor-marker"></div>
+          <div><strong>Precisión en los números</strong><span>Cálculos estructurales rigurosos. Nada se deja al ojo o a la experiencia sola.</span></div>
+        </div>
+        <div class="valor-item">
+          <div class="valor-marker"></div>
+          <div><strong>Presupuesto cerrado</strong><span>Lo que se cotiza es lo que se cobra. Sin variables ni sorpresas al final de obra.</span></div>
+        </div>
+        <div class="valor-item">
+          <div class="valor-marker"></div>
+          <div><strong>Energía solar</strong><span>Formación específica en sistemas fotovoltaicos. Instalaciones dimensionadas con criterio de ingeniería.</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="nosotros-right">
+      <p class="nosotros-cita">Ingeniería civil aplicada a <em>resultados concretos.</em></p>
+      <p class="nosotros-texto">Gastón Vidal es Ingeniero Civil con matrícula provincial MP4513, radicado en Corrientes y con actividad profesional en toda la región del NEA.</p>
+      <p class="nosotros-texto">Su práctica abarca el ciclo completo de la obra: desde la elaboración de planos y memorias de cálculo estructural hasta la dirección técnica en obra y la entrega final documentada. Trabaja tanto con particulares como con empresas que requieren respaldo profesional habilitado para trámites municipales y provinciales.</p>
+      <p class="nosotros-texto">En los últimos años incorporó como especialidad la venta, importación e instalación de sistemas fotovoltaicos. A diferencia de instaladores sin formación de base, aborda cada proyecto solar desde el dimensionado de ingeniería: carga estimada, orientación, estructura de soporte y conexión a red, garantizando una instalación eficiente y segura.</p>
+      <p class="nosotros-texto">Cada proyecto lleva su firma y su matrícula. Eso implica responsabilidad técnica y legal sobre lo ejecutado, no únicamente un acuerdo comercial.</p>
+      <div class="badge-matricula">Ingeniero Civil · <span>MP4513</span> · Corrientes</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACTO -->
+<section id="contacto">
+  <div class="contacto-inner">
+    <div>
+      <div class="section-label">Hablemos</div>
+      <h2 class="section-title">Contacto</h2>
+      <p class="section-desc">Respondemos dentro de las 24 horas hábiles con una propuesta técnica inicial sin compromiso.</p>
+
+      <div class="contacto-info">
+        <div class="contacto-dato">
+          <div class="contacto-dato-icon">
+            <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.19h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.77a16 16 0 0 0 6.29 6.29l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          </div>
+          <div>
+            <strong>WhatsApp</strong>
+            <a href="https://wa.me/5493794658356">3794-658356</a>
+          </div>
+        </div>
+        <div class="contacto-dato">
+          <div class="contacto-dato-icon">
+            <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          <div>
+            <strong>Email</strong>
+            <a href="mailto:Vidalgas@gmail.com">Vidalgas@gmail.com</a>
+          </div>
+        </div>
+        <div class="contacto-dato">
+          <div class="contacto-dato-icon">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div>
+            <strong>Zona de trabajo</strong>
+            <span>Corrientes · Chaco · Misiones · Formosa</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="redes">
+        <a href="https://facebook.com/Gastonvidalingenierocivil" class="red-link" target="_blank">
+          <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          Facebook
+        </a>
+        <a href="https://instagram.com/Gastonvidal35" class="red-link" target="_blank">
+          <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          Instagram
+        </a>
+      </div>
+    </div>
+
+    <div>
+      <div class="form-group">
+        <label>Nombre completo</label>
+        <input type="text" placeholder="Tu nombre">
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Teléfono</label>
+          <input type="tel" placeholder="+54 9 ...">
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" placeholder="tu@email.com">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Tipo de consulta</label>
+        <select>
+          <option value="" disabled selected>Seleccioná una opción</option>
+          <option>Planos y proyecto</option>
+          <option>Cálculo estructural</option>
+          <option>Construcción de obra nueva</option>
+          <option>Refacción o ampliación</option>
+          <option>Paneles solares</option>
+          <option>Asesoramiento técnico</option>
+          <option>Otro</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Descripción</label>
+        <textarea placeholder="Contanos qué necesitás. Ubicación, dimensiones, plazo estimado, cualquier detalle útil..."></textarea>
+      </div>
+      <button class="form-submit" onclick="window.open('https://wa.me/5493794658356?text=Hola%20Gast%C3%B3n%2C%20te%20consulto%20desde%20tu%20p%C3%A1gina%20web.','_blank')">Enviar por WhatsApp →</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div style="display:flex;align-items:center;gap:10px;">
+    <svg width="28" height="24" viewBox="0 0 28 24" xmlns="http://www.w3.org/2000/svg" fill="none">
+      <rect x="1" y="1" width="26" height="3" fill="#c9a84c"/>
+      <polygon points="14,22 2,6 6,6 14,18 22,6 26,6" fill="#c9a84c"/>
+    </svg>
+    <span style="font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:3px;color:#7a7468;">GASTÓN VIDAL</span>
+  </div>
+  <div class="footer-copy">© 2025 · Ingeniero Civil MP4513 · Corrientes, Argentina</div>
+</footer>
+
+</body>
+</html>
