@@ -1,4 +1,3 @@
-cat > /home/claude/gaston-vidal.html << 'HTMLEOF'
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -21,6 +20,9 @@ cat > /home/claude/gaston-vidal.html << 'HTMLEOF'
     --texto: #e0dbd0;
     --texto-muted: #7a7468;
     --blanco: #f2ede0;
+    --error: #c0392b;
+    --error-bg: rgba(192,57,43,0.08);
+    --ok: #27ae60;
   }
 
   html { scroll-behavior: smooth; }
@@ -42,9 +44,6 @@ cat > /home/claude/gaston-vidal.html << 'HTMLEOF'
     z-index: 0;
   }
 
-  /* SVG LOGO — reutilizable */
-  .logo-svg { display: block; }
-
   /* ---- NAV ---- */
   nav {
     position: fixed;
@@ -59,7 +58,8 @@ cat > /home/claude/gaston-vidal.html << 'HTMLEOF'
     height: 64px;
   }
 
-  .nav-logo { display: flex; align-items: center; gap: 12px; cursor: pointer; }
+  .nav-logo { display: flex; align-items: center; gap: 12px; cursor: pointer; text-decoration: none; }
+  .nav-logo img { width: 38px; height: 38px; object-fit: contain; }
   .nav-logo-text {
     font-family: 'Bebas Neue', sans-serif;
     font-size: 1.4rem;
@@ -68,7 +68,7 @@ cat > /home/claude/gaston-vidal.html << 'HTMLEOF'
     line-height: 1;
   }
   .nav-logo-sub {
-    font-size: 1rem;
+    font-size: 0.58rem;
     letter-spacing: 2.5px;
     text-transform: uppercase;
     color: var(--texto-muted);
@@ -116,8 +116,28 @@ cat > /home/claude/gaston-vidal.html << 'HTMLEOF'
   }
 
   .hero-logo-grande {
+    display: flex;
+    align-items: center;
+    gap: 16px;
     margin-bottom: 2.5rem;
     animation: fadeUp 0.4s ease both;
+  }
+  .hero-logo-grande img { width: 70px; height: 70px; object-fit: contain; }
+  .hero-logo-nombre {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    letter-spacing: 4px;
+    line-height: 1;
+  }
+  .hero-logo-nombre span:first-child { color: var(--oro); }
+  .hero-logo-nombre span:last-child { color: var(--blanco); }
+  .hero-logo-matricula {
+    font-size: 0.6rem;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--texto-muted);
+    font-weight: 400;
+    margin-top: 4px;
   }
 
   .hero-eyebrow {
@@ -132,13 +152,7 @@ cat > /home/claude/gaston-vidal.html << 'HTMLEOF'
     gap: 12px;
     animation: fadeUp 0.5s 0.05s ease both;
   }
-  .hero-eyebrow::before {
-    content: '';
-    display: block;
-    width: 36px;
-    height: 1px;
-    background: var(--oro);
-  }
+  .hero-eyebrow::before { content: ''; display: block; width: 36px; height: 1px; background: var(--oro); }
 
   .hero h1 {
     font-family: 'Bebas Neue', sans-serif;
@@ -146,20 +160,11 @@ cat > /home/claude/gaston-vidal.html << 'HTMLEOF'
     line-height: 0.93;
     letter-spacing: 2px;
     color: var(--blanco);
-    margin-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
     max-width: 780px;
     animation: fadeUp 0.6s 0.1s ease both;
   }
-
-  .hero-matricula {
-    font-size: 0.72rem;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--texto-muted);
-    font-weight: 400;
-    margin-bottom: 1.8rem;
-    animation: fadeUp 0.6s 0.15s ease both;
-  }
+  .hero h1 em { color: var(--oro); font-style: normal; }
 
   .hero-sub {
     font-size: 1rem;
@@ -213,23 +218,11 @@ cat > /home/claude/gaston-vidal.html << 'HTMLEOF'
     flex-wrap: wrap;
     animation: fadeUp 0.6s 0.3s ease both;
   }
-  .stat-num {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 2.6rem;
-    color: var(--blanco);
-    line-height: 1;
-  }
+  .stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 2.6rem; color: var(--blanco); line-height: 1; }
   .stat-num span { color: var(--oro); }
-  .stat-label {
-    font-size: 0.68rem;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--texto-muted);
-    margin-top: 4px;
-    font-weight: 500;
-  }
+  .stat-label { font-size: 0.68rem; letter-spacing: 2px; text-transform: uppercase; color: var(--texto-muted); margin-top: 4px; font-weight: 500; }
 
-  /* ---- SECCIÓN GENÉRICA ---- */
+  /* ---- SECCIONES ---- */
   section { position: relative; z-index: 1; padding: 100px 5%; border-bottom: 1px solid var(--gris-borde); }
 
   .section-label {
@@ -254,14 +247,7 @@ cat > /home/claude/gaston-vidal.html << 'HTMLEOF'
     line-height: 1;
   }
 
-  .section-desc {
-    font-size: 0.92rem;
-    color: var(--texto-muted);
-    max-width: 500px;
-    font-weight: 300;
-    line-height: 1.8;
-    margin-bottom: 3.5rem;
-  }
+  .section-desc { font-size: 0.92rem; color: var(--texto-muted); max-width: 500px; font-weight: 300; line-height: 1.8; margin-bottom: 3.5rem; }
 
   /* ---- SERVICIOS ---- */
   #servicios { background: var(--carbon); }
@@ -274,159 +260,70 @@ cat > /home/claude/gaston-vidal.html << 'HTMLEOF'
     border: 1px solid var(--gris-borde);
   }
 
-  .servicio-card {
-    background: var(--carbon);
-    padding: 2.2rem 1.8rem;
-    transition: background 0.25s;
-  }
+  .servicio-card { background: var(--carbon); padding: 2.2rem 1.8rem; transition: background 0.25s; }
   .servicio-card:hover { background: var(--gris-oscuro); }
 
   .servicio-icon {
-    width: 44px;
-    height: 44px;
+    width: 44px; height: 44px;
     border: 1px solid var(--gris-borde);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: flex; align-items: center; justify-content: center;
     margin-bottom: 1.3rem;
     transition: border-color 0.25s;
   }
   .servicio-card:hover .servicio-icon { border-color: var(--oro); }
   .servicio-icon svg { width: 20px; height: 20px; stroke: var(--oro); fill: none; stroke-width: 1.5; }
-
-  .servicio-card h3 {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.3rem;
-    letter-spacing: 1px;
-    color: var(--blanco);
-    margin-bottom: 0.5rem;
-  }
+  .servicio-card h3 { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; letter-spacing: 1px; color: var(--blanco); margin-bottom: 0.5rem; }
   .servicio-card p { font-size: 0.86rem; color: var(--texto-muted); line-height: 1.7; font-weight: 300; }
 
-  /* badge solar */
   .badge-nuevo {
-    display: inline-block;
-    font-size: 0.6rem;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    background: var(--oro);
-    color: var(--negro);
-    padding: 2px 8px;
-    font-weight: 600;
-    margin-left: 8px;
-    vertical-align: middle;
-    position: relative;
-    top: -2px;
+    display: inline-block; font-size: 0.6rem; letter-spacing: 2px; text-transform: uppercase;
+    background: var(--oro); color: var(--negro); padding: 2px 8px; font-weight: 600;
+    margin-left: 8px; vertical-align: middle; position: relative; top: -2px;
   }
 
   /* ---- PROCESO ---- */
   #proceso { background: var(--negro); }
 
-  .proceso-steps {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  }
+  .proceso-steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
 
-  .paso {
-    padding: 2.2rem 1.5rem;
-    border-left: 1px solid var(--gris-borde);
-  }
+  .paso { padding: 2.2rem 1.5rem; border-left: 1px solid var(--gris-borde); }
   .paso:first-child { border-left: none; }
-
-  .paso-num {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 3rem;
-    color: rgba(201,168,76,0.12);
-    line-height: 1;
-    margin-bottom: 0.8rem;
-  }
-  .paso h4 {
-    font-size: 0.82rem;
-    font-weight: 600;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    color: var(--blanco);
-    margin-bottom: 0.4rem;
-  }
+  .paso-num { font-family: 'Bebas Neue', sans-serif; font-size: 3rem; color: rgba(201,168,76,0.12); line-height: 1; margin-bottom: 0.8rem; }
+  .paso h4 { font-size: 0.82rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--blanco); margin-bottom: 0.4rem; }
   .paso p { font-size: 0.8rem; color: var(--texto-muted); line-height: 1.7; font-weight: 300; }
 
   /* ---- NOSOTROS ---- */
   #nosotros { background: var(--gris-oscuro); }
 
-  .nosotros-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 6rem;
-    align-items: start;
-  }
+  .nosotros-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: start; }
 
-  .valor-item {
-    display: flex;
-    gap: 1rem;
-    padding: 1.1rem 0;
-    border-bottom: 1px solid var(--gris-borde);
-    align-items: flex-start;
-  }
+  .valor-item { display: flex; gap: 1rem; padding: 1.1rem 0; border-bottom: 1px solid var(--gris-borde); align-items: flex-start; }
   .valor-item:first-child { border-top: 1px solid var(--gris-borde); }
   .valor-marker { width: 6px; height: 6px; background: var(--oro); flex-shrink: 0; margin-top: 7px; }
   .valor-item strong { display: block; font-size: 0.83rem; font-weight: 600; color: var(--blanco); margin-bottom: 2px; }
   .valor-item span { font-size: 0.8rem; color: var(--texto-muted); font-weight: 300; }
 
   .nosotros-right { padding-top: 2rem; }
-
-  .nosotros-cita {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(1.7rem, 3vw, 2.6rem);
-    color: var(--blanco);
-    line-height: 1.15;
-    letter-spacing: 0.5px;
-    margin-bottom: 1.8rem;
-  }
+  .nosotros-cita { font-family: 'Bebas Neue', sans-serif; font-size: clamp(1.7rem, 3vw, 2.6rem); color: var(--blanco); line-height: 1.15; letter-spacing: 0.5px; margin-bottom: 1.8rem; }
   .nosotros-cita em { color: var(--oro); font-style: normal; }
-
-  .nosotros-texto { font-size: 0.9rem; color: var(--texto-muted); line-height: 1.85; font-weight: 300; margin-bottom: 2rem; }
+  .nosotros-texto { font-size: 0.9rem; color: var(--texto-muted); line-height: 1.85; font-weight: 300; margin-bottom: 1.2rem; }
 
   .badge-matricula {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    border: 1px solid var(--gris-borde);
-    padding: 10px 18px;
-    font-size: 0.72rem;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--texto-muted);
-    font-weight: 500;
+    display: inline-flex; align-items: center; gap: 10px;
+    border: 1px solid var(--gris-borde); padding: 10px 18px;
+    font-size: 0.72rem; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--texto-muted); font-weight: 500; margin-top: 0.8rem;
   }
   .badge-matricula span { color: var(--oro); font-weight: 600; }
 
   /* ---- CONTACTO ---- */
   #contacto { background: var(--carbon); }
 
-  .contacto-inner {
-    display: grid;
-    grid-template-columns: 1fr 1.2fr;
-    gap: 5rem;
-    align-items: start;
-  }
-
+  .contacto-inner { display: grid; grid-template-columns: 1fr 1.2fr; gap: 5rem; align-items: start; }
   .contacto-info { padding-top: 2.5rem; }
 
-  .contacto-dato {
-    display: flex;
-    align-items: flex-start;
-    gap: 1rem;
-    margin-bottom: 1.6rem;
-  }
-  .contacto-dato-icon {
-    width: 38px;
-    height: 38px;
-    border: 1px solid var(--gris-borde);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-  }
+  .contacto-dato { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1.6rem; }
+  .contacto-dato-icon { width: 38px; height: 38px; border: 1px solid var(--gris-borde); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
   .contacto-dato-icon svg { width: 16px; height: 16px; stroke: var(--oro); fill: none; stroke-width: 1.5; }
   .contacto-dato strong { display: block; font-size: 0.68rem; letter-spacing: 2px; text-transform: uppercase; color: var(--texto-muted); font-weight: 500; margin-bottom: 3px; }
   .contacto-dato a, .contacto-dato span { font-size: 0.92rem; color: var(--blanco); text-decoration: none; }
@@ -434,25 +331,19 @@ cat > /home/claude/gaston-vidal.html << 'HTMLEOF'
 
   .redes { display: flex; gap: 1rem; margin-top: 2rem; flex-wrap: wrap; }
   .red-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    border: 1px solid var(--gris-borde);
-    padding: 9px 16px;
-    font-size: 0.72rem;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: var(--texto-muted);
-    text-decoration: none;
-    font-weight: 500;
+    display: inline-flex; align-items: center; gap: 8px;
+    border: 1px solid var(--gris-borde); padding: 9px 16px;
+    font-size: 0.72rem; letter-spacing: 1.5px; text-transform: uppercase;
+    color: var(--texto-muted); text-decoration: none; font-weight: 500;
     transition: border-color 0.2s, color 0.2s;
   }
   .red-link:hover { border-color: var(--oro); color: var(--oro); }
   .red-link svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 1.5; flex-shrink: 0; }
 
   /* ---- FORM ---- */
-  .form-group { margin-bottom: 1.1rem; }
+  .form-group { margin-bottom: 1.1rem; position: relative; }
   .form-group label { display: block; font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; color: var(--texto-muted); font-weight: 500; margin-bottom: 6px; }
+
   .form-group input,
   .form-group select,
   .form-group textarea {
@@ -474,6 +365,26 @@ cat > /home/claude/gaston-vidal.html << 'HTMLEOF'
   .form-group textarea { height: 100px; resize: vertical; }
   .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
 
+  /* Validación */
+  .form-group input.campo-error,
+  .form-group select.campo-error,
+  .form-group textarea.campo-error {
+    border-color: var(--error);
+    background: var(--error-bg);
+  }
+  .form-group input.campo-ok,
+  .form-group select.campo-ok { border-color: var(--ok); }
+
+  .form-error-msg {
+    display: none;
+    font-size: 0.72rem;
+    color: var(--error);
+    letter-spacing: 0.5px;
+    margin-top: 5px;
+    font-weight: 500;
+  }
+  .form-error-msg.visible { display: block; }
+
   .form-submit {
     width: 100%;
     background: var(--oro);
@@ -491,20 +402,20 @@ cat > /home/claude/gaston-vidal.html << 'HTMLEOF'
     border-radius: 0;
   }
   .form-submit:hover { background: var(--oro-hover); }
+  .form-submit:disabled { background: var(--gris-borde); color: var(--texto-muted); cursor: not-allowed; }
 
   /* ---- FOOTER ---- */
   footer {
-    position: relative;
-    z-index: 1;
+    position: relative; z-index: 1;
     background: var(--negro);
     padding: 2.5rem 5%;
     border-top: 1px solid var(--gris-borde);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 1rem;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 1rem;
   }
+  .footer-logo { display: flex; align-items: center; gap: 10px; }
+  .footer-logo img { width: 32px; height: 32px; object-fit: contain; }
+  .footer-logo-text { font-family: 'Bebas Neue', sans-serif; font-size: 1rem; letter-spacing: 3px; color: var(--texto-muted); }
   .footer-copy { font-size: 0.72rem; color: var(--texto-muted); letter-spacing: 1px; font-weight: 300; }
 
   /* ---- RESPONSIVE ---- */
@@ -532,11 +443,13 @@ cat > /home/claude/gaston-vidal.html << 'HTMLEOF'
 
 <!-- NAV -->
 <nav>
-  <img src="logo.png" alt="Logo" width="38" height="38" style="object-fit:contain;">
+  <a href="#" class="nav-logo">
+    <img src="logo.png" alt="GV Ingeniería">
     <div>
-      <div class="nav-logo-text">GV INGENIERIA</div>
+      <div class="nav-logo-text">GV INGENIERÍA</div>
+      <div class="nav-logo-sub">Gastón Vidal · Ing. Civil · MP4513</div>
     </div>
-  </div>
+  </a>
   <ul class="nav-links">
     <li><a href="#servicios">Servicios</a></li>
     <li><a href="#proceso">Metodología</a></li>
@@ -548,17 +461,20 @@ cat > /home/claude/gaston-vidal.html << 'HTMLEOF'
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-bg-text">GV INGENIERIA</div>
+  <div class="hero-bg-text">VIDAL</div>
 
- <!-- Logo grande -->
-<div class="hero-logo-grande">
-  <img src="logo.png" alt="Logo" width="150" height="150" style="object-fit:contain;">
-  <div class=<span style="font-size: 2rem; letter-spacing: 4px; color: #C9A84C; font-family: 'Bebas Neue', sans-serif;">GV<span style="font-size: 2rem; letter-spacing: 4px; color: #f2ede0; font-family: 'Bebas Neue', sans-serif;">INGENIERIA</span>
-</div>
-<div class="nav-logo-sub">Gastón Vidal · Ingeniero Civil · MP4513</div>
+  <div class="hero-logo-grande">
+    <img src="logo.png" alt="GV Ingeniería">
+    <div>
+      <div class="hero-logo-nombre">
+        <span>GV</span><span>INGENIERÍA</span>
+      </div>
+      <div class="hero-logo-matricula">Gastón Vidal · Ingeniero Civil · MP4513</div>
+    </div>
+  </div>
 
   <div class="hero-eyebrow">Corrientes · NEA · Argentina</div>
-<h1>INGENIERIA<br>QUE CONSTRUYE<br><span style="color: #C9A84C;">CONFIANZA</span></h1>
+  <h1>Ingeniería<br>que construye<br><em>confianza.</em></h1>
   <p class="hero-sub">Soluciones integrales en construcción. Planos, cálculos estructurales, asesoramiento técnico e instalación de energía solar fotovoltaica.</p>
   <div class="hero-ctas">
     <a href="https://wa.me/5493794658356" class="btn-primary">Consultar por WhatsApp</a>
@@ -570,7 +486,7 @@ cat > /home/claude/gaston-vidal.html << 'HTMLEOF'
       <div class="stat-label">Matrícula provincial</div>
     </div>
     <div>
-      <div class="stat-num"><span>3</span></div>
+      <div class="stat-num"><span>6</span></div>
       <div class="stat-label">Especialidades</div>
     </div>
     <div>
@@ -699,7 +615,7 @@ cat > /home/claude/gaston-vidal.html << 'HTMLEOF'
       <p class="nosotros-cita">Ingeniería civil aplicada a <em>resultados concretos.</em></p>
       <p class="nosotros-texto">Gastón Vidal es Ingeniero Civil con matrícula provincial MP4513, radicado en Corrientes y con actividad profesional en toda la región del NEA.</p>
       <p class="nosotros-texto">Su práctica abarca el ciclo completo de la obra: desde la elaboración de planos y memorias de cálculo estructural hasta la dirección técnica en obra y la entrega final documentada. Trabaja tanto con particulares como con empresas que requieren respaldo profesional habilitado para trámites municipales y provinciales.</p>
-      <p class="nosotros-texto">En los últimos años incorporó como especialidad la venta, importación e instalación de sistemas fotovoltaicos. A diferencia de instaladores sin formación de base, aborda cada proyecto solar desde el dimensionado de ingeniería: carga estimada, orientación, estructura de soporte y conexión a red, garantizando una instalación eficiente y segura.</p>
+      <p class="nosotros-texto">En los últimos años incorporó como especialidad la venta, importación e instalación de sistemas fotovoltaicos. Aborda cada proyecto solar desde el dimensionado de ingeniería: carga estimada, orientación, estructura de soporte y conexión a red.</p>
       <p class="nosotros-texto">Cada proyecto lleva su firma y su matrícula. Eso implica responsabilidad técnica y legal sobre lo ejecutado, no únicamente un acuerdo comercial.</p>
       <div class="badge-matricula">Ingeniero Civil · <span>MP4513</span> · Corrientes</div>
     </div>
@@ -756,24 +672,30 @@ cat > /home/claude/gaston-vidal.html << 'HTMLEOF'
       </div>
     </div>
 
+    <!-- FORMULARIO CON VALIDACIÓN -->
     <div>
       <div class="form-group">
         <label>Nombre completo</label>
-        <input id="form-nombre" type="text" placeholder="Tu nombre">
+        <input id="f-nombre" type="text" placeholder="Tu nombre">
+        <div class="form-error-msg" id="err-nombre">Ingresá tu nombre.</div>
       </div>
+
       <div class="form-row">
         <div class="form-group">
-          <label>Teléfono</label>
-          <input id="form-telefono" type="tel" placeholder="+54 9 ...">
+          <label>Teléfono / WhatsApp *</label>
+          <input id="f-telefono" type="tel" placeholder="+54 9 379...">
+          <div class="form-error-msg" id="err-telefono">Ingresá un número válido (mínimo 8 dígitos).</div>
         </div>
         <div class="form-group">
-          <label>Email</label>
-          <input id="form-email" type="email" placeholder="tu@email.com">
+          <label>Email *</label>
+          <input id="f-email" type="email" placeholder="tu@email.com">
+          <div class="form-error-msg" id="err-email">Ingresá un email válido (ej: nombre@gmail.com).</div>
         </div>
       </div>
+
       <div class="form-group">
         <label>Tipo de consulta</label>
-        <select id="form-consulta">
+        <select id="f-consulta">
           <option value="" disabled selected>Seleccioná una opción</option>
           <option>Planos y proyecto</option>
           <option>Cálculo estructural</option>
@@ -784,44 +706,107 @@ cat > /home/claude/gaston-vidal.html << 'HTMLEOF'
           <option>Otro</option>
         </select>
       </div>
+
       <div class="form-group">
         <label>Descripción</label>
-        <textarea id="form-descripcion" placeholder="Contanos qué necesitás. Ubicación, dimensiones, plazo estimado, cualquier detalle útil..."></textarea>
+        <textarea id="f-descripcion" placeholder="Contanos qué necesitás. Ubicación, dimensiones, plazo estimado, cualquier detalle útil..."></textarea>
       </div>
-      <button class="form-submit" onclick="enviarWhatsApp()">Enviar por WhatsApp →</button>
 
-      <script>
-        function enviarWhatsApp() {
-          const nombre      = document.getElementById('form-nombre').value.trim();
-          const telefono    = document.getElementById('form-telefono').value.trim();
-          const email       = document.getElementById('form-email').value.trim();
-          const consulta    = document.getElementById('form-consulta').value;
-          const descripcion = document.getElementById('form-descripcion').value.trim();
+      <div id="form-aviso" style="display:none; font-size:0.78rem; color:var(--error); padding: 10px 14px; border: 1px solid var(--error); background: var(--error-bg); margin-bottom: 1rem; letter-spacing: 0.5px;">
+        ⚠ Completá teléfono y email para que Gastón pueda contactarte.
+      </div>
 
-          let mensaje = 'Hola Gastón, te consulto desde tu página web.';
-          if (nombre)      mensaje += `\n\n*Nombre:* ${nombre}`;
-          if (telefono)    mensaje += `\n*Teléfono:* ${telefono}`;
-          if (email)       mensaje += `\n*Email:* ${email}`;
-          if (consulta)    mensaje += `\n*Tipo de consulta:* ${consulta}`;
-          if (descripcion) mensaje += `\n\n*Descripción:*\n${descripcion}`;
+      <button class="form-submit" onclick="enviarFormulario()">Enviar por WhatsApp →</button>
 
-          const url = 'https://wa.me/5493794658356?text=' + encodeURIComponent(mensaje);
-          window.open(url, '_blank');
-        }
-      </script>
+      <p style="font-size:0.7rem; color:var(--texto-muted); margin-top:10px; letter-spacing:0.5px;">
+        * Campos obligatorios. Sin teléfono o email válidos no es posible responder tu consulta.
+      </p>
     </div>
   </div>
 </section>
 
 <!-- FOOTER -->
 <footer>
-  <div style="display:flex;align-items:center;gap:10px;">
-    <img src="logo.png" alt="Logo" width="38" height="38" style="object-fit:contain;">
-    <div>
-    <span style="font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:3px;color:#7a7468;">GV INGENIERIA</span>
+  <div class="footer-logo">
+    <img src="logo.png" alt="GV Ingeniería">
+    <span class="footer-logo-text">GV INGENIERÍA</span>
   </div>
   <div class="footer-copy">© 2026 · Ingeniero Civil MP4513 · Corrientes, Argentina</div>
 </footer>
+
+<script>
+  function validarEmail(email) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email);
+  }
+
+  function validarTelefono(tel) {
+    const soloDigitos = tel.replace(/[\s\-\+\(\)]/g, '');
+    return soloDigitos.length >= 8 && /^\d+$/.test(soloDigitos);
+  }
+
+  function marcarError(inputId, errId, hayError) {
+    const input = document.getElementById(inputId);
+    const err   = document.getElementById(errId);
+    if (!input || !err) return;
+    if (hayError) {
+      input.classList.add('campo-error');
+      input.classList.remove('campo-ok');
+      err.classList.add('visible');
+    } else {
+      input.classList.remove('campo-error');
+      input.classList.add('campo-ok');
+      err.classList.remove('visible');
+    }
+  }
+
+  // Validación en tiempo real al salir del campo
+  document.getElementById('f-telefono').addEventListener('blur', function() {
+    marcarError('f-telefono', 'err-telefono', !validarTelefono(this.value.trim()));
+  });
+  document.getElementById('f-email').addEventListener('blur', function() {
+    marcarError('f-email', 'err-email', !validarEmail(this.value.trim()));
+  });
+  document.getElementById('f-nombre').addEventListener('blur', function() {
+    marcarError('f-nombre', 'err-nombre', this.value.trim().length < 2);
+  });
+
+  function enviarFormulario() {
+    const nombre      = document.getElementById('f-nombre').value.trim();
+    const telefono    = document.getElementById('f-telefono').value.trim();
+    const email       = document.getElementById('f-email').value.trim();
+    const consulta    = document.getElementById('f-consulta').value;
+    const descripcion = document.getElementById('f-descripcion').value.trim();
+    const aviso       = document.getElementById('form-aviso');
+
+    let hayErrores = false;
+
+    if (nombre.length < 2) { marcarError('f-nombre', 'err-nombre', true); hayErrores = true; }
+    else { marcarError('f-nombre', 'err-nombre', false); }
+
+    if (!validarTelefono(telefono)) { marcarError('f-telefono', 'err-telefono', true); hayErrores = true; }
+    else { marcarError('f-telefono', 'err-telefono', false); }
+
+    if (!validarEmail(email)) { marcarError('f-email', 'err-email', true); hayErrores = true; }
+    else { marcarError('f-email', 'err-email', false); }
+
+    if (hayErrores) {
+      aviso.style.display = 'block';
+      document.getElementById('f-telefono').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
+    }
+
+    aviso.style.display = 'none';
+
+    let mensaje = 'Hola Gastón, te consulto desde tu página web.';
+    if (nombre)      mensaje += `\n\n*Nombre:* ${nombre}`;
+    if (telefono)    mensaje += `\n*Teléfono:* ${telefono}`;
+    if (email)       mensaje += `\n*Email:* ${email}`;
+    if (consulta)    mensaje += `\n*Tipo de consulta:* ${consulta}`;
+    if (descripcion) mensaje += `\n\n*Descripción:*\n${descripcion}`;
+
+    window.open('https://wa.me/5493794658356?text=' + encodeURIComponent(mensaje), '_blank');
+  }
+</script>
 
 </body>
 </html>
